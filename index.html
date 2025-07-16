@@ -2,80 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>impulse</title>
+  <title>loading...</title>
+  <link rel="icon" type="image/png" href="/mnt/data/ecdd4577-9b9b-4d92-bdc9-57b17d727e02.png">
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
       height: 100%;
-      width: 100%;
       background-color: black;
+      font-family: 'Roboto', sans-serif;
       overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    }
+
+    .container {
       position: relative;
-      font-family: 'Arial', sans-serif;
-    }
-
-    video {
-      height: 40%;
       width: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
+      height: 100%;
     }
 
-    #title {
+    .centered-gif {
       position: absolute;
-      font-size: 3rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-80%, -60%);
+      width: auto;
+      height: 40vh;
+    }
+
+    .text-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-30%, 60%) scale(1, 3);
       color: white;
-      opacity: 0;
-      transform: scale(0.5);
-      animation: popIn 3s ease-out forwards;
-      animation-delay: 0.5s;
-      cursor: pointer;
-    }
-
-    @keyframes popIn {
-      0% {
-        opacity: 0;
-        transform: scale(1, 10000) ;
-      }
-      50% {
-        transform: scale(1, 5000) ;
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1, 4) ;
-      }
-    }
-
-    #title:hover {
-      letter-spacing: 0.5em;
-      transition: letter-spacing 0.3s ease;
-    }
+      font-size: 4rem;
+      pointer-events: auto;
+      mix-blend-mode: lighten;
+      letter-spacing: 0.2em;
+      transition: letter-spacing 0.4s ease-in-out;
+    } 
+    
   </style>
 </head>
 <body>
-  <video id="intro" autoplay muted playsinline>
-    <source src="https://i.imgur.com/Gt4aAkk.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-  <div id="title">impulse</div>
-
-  <script>
-    const video = document.getElementById('intro');
-    const title = document.getElementById('title');
-
-    video.onended = () => {
-      video.pause();
-      video.currentTime = video.duration;
-      title.style.opacity = 1;
-    }
-  </script>
+  <div class="container">
+    <img class="centered-gif" src="https://i.imgur.com/OFI6maI.gif" alt="mysterious gif">
+    <div class="text-overlay">impulse</div>
+  </div>
 </body>
 </html>
