@@ -1,27 +1,71 @@
-import { motion } from 'framer-motion';
-import { ArrowRightIcon } from '@heroicons/react/24/solid';
+import { useEffect, useRef } from 'react';
+import { motion, useAnimation, useScroll, useTransform } from 'framer-motion';
 
-const headline = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: 'easeOut' } },
-};
+const LOGO_URL = 'https://i.imgur.com/4lyEvlW.png';
 
 export default function Hero() {
+  const heroRef = useRef(null);
+  const { scrollY } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+
+  // Logo: scale up and fade out as you scroll
+  const logoScale = useTransform(scrollY, [0, 300], [1, 1.3]);
+  const logoY = useTransform(scrollY, [0, 300], [0, -40]);
+  const logoOpacity = useTransform(scrollY, [0, 200], [1, 0]);
+
+  // Word: fade/slide out as you scroll
+  const wordOpacity = useTransform(scrollY, [0, 120], [1, 0]);
+  const wordY = useTransform(scrollY, [0, 120], [-60, -20]); // lower than before
+  const wordScale = useTransform(scrollY, [0, 300], [1, 1.1]);
+
+  // Black overlay for initial flash
+  const controls = useAnimation();
+  useEffect(() => {
+    (async () => {
+      await controls.start({ opacity: 1 });
+      await controls.start({ opacity: 0, transition: { delay: 0.5, duration: 0.7 } });
+    })();
+  }, [controls]);
+
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen w-full bg-black text-white">
-      <img
-        src="https://i.imgur.com/VpoteIg.png"
-        alt="Impulse App Logo"
-        className="w-80 h-80 md:w-[28rem] md:h-[28rem] mb-8 object-contain"
-        style={{ minWidth: 320, minHeight: 320 }}
+    <section ref={heroRef} className="relative flex flex-col items-center justify-center min-h-screen w-full bg-black text-white overflow-hidden select-none">
+      {/* Black overlay for initial flash */}
+      <motion.div
+        initial={{ opacity: 1 }}
+        animate={controls}
+        className="fixed inset-0 z-40 bg-black pointer-events-none"
       />
-      <h1 className="font-heading font-extrabold text-[clamp(3rem,10vw,8rem)] lowercase text-center tracking-tight select-none">
+      {/* Word 'impulse' animates in above logo, then scrolls/fades out */}
+      <motion.h1
+        className="font-heading font-extrabold text-[clamp(3rem,10vw,8rem)] lowercase text-center tracking-tight z-10"
+        style={{
+          opacity: wordOpacity,
+          y: wordY,
+          scale: wordScale,
+        }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: -60 }}
+        transition={{ delay: 1.2, duration: 0.8, ease: 'easeOut' }}
+      >
         impulse
-      </h1>
-      <p className="mt-8 text-lg md:text-2xl text-center font-sans text-white/80 max-w-xl">
-        Seize the moment. Make meaningful connections.
-        Voice-first, AI-powered matchmaking.
-      </p>
+      </motion.h1>
+      {/* Logo flash-in, then scroll/zoom/fade */}
+      <motion.img
+        src={LOGO_URL}
+        alt="impulse app logo"
+        className="z-20 object-contain"
+        style={{
+          width: 'min(70vw, 28rem)',
+          height: 'min(70vw, 28rem)',
+          scale: logoScale,
+          translateY: logoY,
+          opacity: logoOpacity,
+          minWidth: 240,
+          minHeight: 240,
+        }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.7, duration: 0.7, ease: 'easeOut' }}
+      />
     </section>
   );
 } 

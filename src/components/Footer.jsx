@@ -23,7 +23,7 @@ export default function Footer() {
           </a>
         ))}
       </div>
-      <span className="font-sans text-white/60 text-sm text-center">&copy; {new Date().getFullYear()} Impulse. All rights reserved.</span>
+      <span className="font-sans text-white/60 text-sm text-center lowercase">&copy; {new Date().getFullYear()} impulse. all rights reserved.</span>
     </footer>
   );
 } 
