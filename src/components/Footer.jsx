@@ -1,7 +1,6 @@
-import { Github, Twitter, Globe, Instagram } from 'lucide-react';
+import { Twitter, Globe, Instagram } from 'lucide-react';
 
 const socials = [
-  { href: 'https://github.com/armaanjhajj/theimpulse.xyz', icon: <Github className="w-6 h-6" /> },
   { href: 'https://x.com/theimpulse_xyz', icon: <Twitter className="w-6 h-6" /> },
   { href: 'https://www.instagram.com/theimpulse.xyz/?next=%2F', icon: <Instagram className="w-6 h-6" /> },
   { href: 'https://theimpulse.xyz', icon: <Globe className="w-6 h-6" /> },

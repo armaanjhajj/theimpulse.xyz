@@ -7,7 +7,9 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import ScrollProgress from './components/ScrollProgress';
 import BackgroundTransition from './components/BackgroundTransition';
-import ImpulseModule from './components/ImpulseModule';
+// import ImpulseModule from './components/ImpulseModule';
+import EventTracker from './components/EventTracker';
+import RotatingSnippetFeed from './components/RotatingSnippetFeed';
 
 function App() {
   return (
@@ -16,9 +18,9 @@ function App() {
       <Hero />
       <BackgroundTransition />
       <Features />
-      <ImpulseModule />
-      <Gallery />
-      {/* <Testimonials /> */}
+      <EventTracker />
+      <RotatingSnippetFeed />
+      {/* <ImpulseModule /> */}
       <CTA />
       <Footer />
       <ScrollToTop />
