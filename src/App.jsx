@@ -9,7 +9,8 @@ import ScrollProgress from './components/ScrollProgress';
 import BackgroundTransition from './components/BackgroundTransition';
 // import ImpulseModule from './components/ImpulseModule';
 import EventTracker from './components/EventTracker';
-import RotatingSnippetFeed from './components/RotatingSnippetFeed';
+// import RotatingSnippetFeed from './components/RotatingSnippetFeed'; // Temporarily hidden
+// import SegmentedSloganDisplay from './components/SegmentedSloganDisplay';
 
 function App() {
   return (
@@ -18,9 +19,8 @@ function App() {
       <Hero />
       <BackgroundTransition />
       <Features />
+      {/* <SegmentedSloganDisplay /> */}
       <EventTracker />
-      <RotatingSnippetFeed />
-      {/* <ImpulseModule /> */}
       <CTA />
       <Footer />
       <ScrollToTop />

@@ -14,7 +14,7 @@ export default function Hero() {
 
   // Word: fade/slide out as you scroll
   const wordOpacity = useTransform(scrollY, [0, 120], [1, 0]);
-  const wordY = useTransform(scrollY, [0, 120], [-60, -20]); // lower than before
+  const wordY = useTransform(scrollY, [0, 120], [-60, -20]);
   const wordScale = useTransform(scrollY, [0, 300], [1, 1.1]);
 
   // Black overlay for initial flash
@@ -48,11 +48,23 @@ export default function Hero() {
       >
         impulse
       </motion.h1>
+      {/* Subtle sentence fade-in after impulse and logo */}
+      <motion.div
+        className="text-center -mt-6 md:-mt-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.8 }}
+        transition={{ delay: 2.2, duration: 1.2, ease: 'easeOut' }}
+        style={{ pointerEvents: 'none' }}
+      >
+        <span className="font-sans text-sm md:text-base text-white/80 lowercase tracking-wide">
+          we make moments
+        </span>
+      </motion.div>
       {/* Logo flash-in, then scroll/zoom/fade */}
       <motion.img
         src={LOGO_URL}
         alt="impulse app logo"
-        className="z-20 object-contain"
+        className="z-20 object-contain -translate-x-8 md:-translate-x-16"
         style={{
           width: 'min(70vw, 28rem)',
           height: 'min(70vw, 28rem)',

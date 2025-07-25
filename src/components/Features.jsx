@@ -1,10 +1,15 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
-const paragraph = `ai-powered matchmaking connects you in real time. voice-first design skips small talk. time-limited matches create urgency. bold moves get rewarded. no swiping, no waiting—just real conversation.`;
+const paragraph = [
+  'we make moments.',
+  'you tell us what you’re looking for and we find people worth meeting.',
+  'no endless swiping, no second guessing, just a chance—right now.',
+  'get on campus. get uncomfortable.'
+].join(' ');
 
 const words = paragraph.split(' ');
-const HIGHLIGHT_WINDOW = 8; // number of words highlighted at a time
+const HIGHLIGHT_WINDOW = 20; // number of words highlighted at a time
 
 export default function Features() {
   const ref = useRef(null);
@@ -12,7 +17,7 @@ export default function Features() {
 
   // The highlight window moves through the paragraph as you scroll
   return (
-    <section ref={ref} className="relative z-10 w-full min-h-[60vh] flex flex-col justify-center items-center px-4">
+    <section ref={ref} className="relative z-10 w-full min-h-[60vh] flex flex-col justify-center items-center px-6 sm:px-8 md:px-12">
       <div className="max-w-3xl w-full mx-auto">
         <motion.p className="text-3xl md:text-5xl font-heading font-extrabold lowercase leading-tight mb-4 flex flex-wrap gap-x-2 gap-y-1">
           {words.map((word, i) => {

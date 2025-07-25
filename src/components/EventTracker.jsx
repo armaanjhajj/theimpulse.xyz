@@ -15,14 +15,14 @@ const events = [
     location: 'livingston',
     items: [
       { time: 'all day', label: 'tailgates' },
-      { time: '6:00 pm', label: 'under the lights' },
+      { time: '6:00 pm', label: 'kickoff' },
     ],
   },
   {
     date: 'august 31',
     location: 'busch',
     items: [
-      { time: 'all day', label: 'watch the streets' },
+      { time: 'all day', label: 'get involved' },
     ],
   },
   {
@@ -47,14 +47,14 @@ export default function EventTracker() {
   const inView = useInView(ref, { once: true, margin: '-20% 0px' });
 
   return (
-    <section ref={ref} className="w-full flex flex-col items-center justify-center py-24 md:py-32 bg-black">
+    <section ref={ref} className="w-full flex flex-col items-center justify-center py-24 md:py-32 bg-black px-6 sm:px-8 md:px-12">
       <motion.h2
         className="text-3xl md:text-5xl font-sans font-bold text-white text-center mb-12 tracking-tight lowercase"
         initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        moments incoming
+        get ready, we're coming
       </motion.h2>
       <div className="w-full max-w-2xl flex flex-col gap-10">
         {events.map((event, i) => {
