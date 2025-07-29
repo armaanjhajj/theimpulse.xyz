@@ -2,10 +2,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
 const paragraph = [
-  'we make moments.',
-  'you tell us what you’re looking for and we find people worth meeting.',
-  'no endless swiping, no second guessing, just a chance—right now.',
-  'get on campus. get uncomfortable.'
+  'no one talks to each other anymore.',
+  'we\'ve replaced real moments with scrolling, swiping, and silence.',
+  'impulse exists to bring back instinct, boldness, and actually showing up.',
+  'lets get uncomfortable.'
 ].join(' ');
 
 const words = paragraph.split(' ');

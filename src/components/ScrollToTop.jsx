@@ -14,6 +14,10 @@ export default function ScrollToTop() {
   }, []);
 
   const handleClick = () => {
+    // Haptic feedback for iPhone
+    if ('navigator' in window && 'vibrate' in navigator) {
+      navigator.vibrate(20); // Slightly stronger feedback for button click
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

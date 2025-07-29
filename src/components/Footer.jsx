@@ -9,6 +9,9 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="w-full py-8 flex flex-col items-center gap-4 px-6 bg-white border-t border-black/10 mt-12">
+      <span className="font-sans text-black/80 text-lg md:text-xl text-center lowercase tracking-wide mb-2">
+        join the movement
+      </span>
       <div className="flex gap-6 justify-center">
         {socials.map((s, i) => (
           <a
