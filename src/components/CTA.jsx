@@ -4,8 +4,8 @@ import { ArrowRight } from 'lucide-react';
 export default function CTA() {
   return (
     <section className="relative z-10 py-24 flex flex-col items-center justify-center">
-      <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-center mb-10 text-red-500 lowercase">
-        seize the moment.
+      {/* <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-center mb-10 text-white lowercase">
+        seize. the. moment. 
       </h2>
       <motion.a
         href="#"
@@ -15,7 +15,7 @@ export default function CTA() {
       >
         download for ios
         <ArrowRight className="w-7 h-7" />
-      </motion.a>
+      </motion.a> */}
     </section>
   );
 } 

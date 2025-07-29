@@ -6,21 +6,21 @@ import CTA from './components/CTA';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import ScrollProgress from './components/ScrollProgress';
-import BackgroundTransition from './components/BackgroundTransition';
+// import BackgroundTransition from './components/BackgroundTransition';
 // import ImpulseModule from './components/ImpulseModule';
-import EventTracker from './components/EventTracker';
+// import EventTracker from './components/EventTracker'; // Removed
 // import RotatingSnippetFeed from './components/RotatingSnippetFeed'; // Temporarily hidden
 // import SegmentedSloganDisplay from './components/SegmentedSloganDisplay';
 
 function App() {
   return (
-    <div className="bg-black min-h-screen font-sans text-white relative overflow-x-hidden">
+    <div className="bg-white min-h-screen font-sans text-black relative overflow-x-hidden">
       <ScrollProgress />
       <Hero />
-      <BackgroundTransition />
+      {/* <BackgroundTransition /> */}
       <Features />
       {/* <SegmentedSloganDisplay /> */}
-      <EventTracker />
+      {/* <EventTracker /> */}
       <CTA />
       <Footer />
       <ScrollToTop />

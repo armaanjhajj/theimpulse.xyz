@@ -8,7 +8,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="w-full py-8 flex flex-col items-center gap-4 px-6 bg-black border-t border-white/10 mt-12">
+    <footer className="w-full py-8 flex flex-col items-center gap-4 px-6 bg-white border-t border-black/10 mt-12">
       <div className="flex gap-6 justify-center">
         {socials.map((s, i) => (
           <a
@@ -16,13 +16,13 @@ export default function Footer() {
             href={s.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-white transition-colors duration-200"
+            className="text-black hover:text-black transition-colors duration-200"
           >
             {s.icon}
           </a>
         ))}
       </div>
-      <span className="font-sans text-white/60 text-sm text-center lowercase">&copy; {new Date().getFullYear()} impulse. all rights reserved.</span>
+      <span className="font-sans text-black/60 text-sm text-center lowercase">&copy; {new Date().getFullYear()} impulse. all rights reserved.</span>
     </footer>
   );
 } 

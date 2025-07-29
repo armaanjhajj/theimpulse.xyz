@@ -27,12 +27,12 @@ export default function Hero() {
   }, [controls]);
 
   return (
-    <section ref={heroRef} className="relative flex flex-col items-center justify-center min-h-screen w-full bg-black text-white overflow-hidden select-none">
+    <section ref={heroRef} className="relative flex flex-col items-center justify-center min-h-screen w-full bg-white text-black overflow-hidden select-none">
       {/* Black overlay for initial flash */}
       <motion.div
         initial={{ opacity: 1 }}
         animate={controls}
-        className="fixed inset-0 z-40 bg-black pointer-events-none"
+        className="fixed inset-0 z-40 bg-white pointer-events-none"
       />
       {/* Word 'impulse' animates in above logo, then scrolls/fades out */}
       <motion.h1
@@ -49,7 +49,7 @@ export default function Hero() {
         impulse
       </motion.h1>
       {/* Subtle sentence fade-in after impulse and logo */}
-      <motion.div
+      {/* <motion.div
         className="text-center -mt-6 md:-mt-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.8 }}
@@ -59,12 +59,12 @@ export default function Hero() {
         <span className="font-sans text-sm md:text-base text-white/80 lowercase tracking-wide">
           we make moments
         </span>
-      </motion.div>
+      </motion.div> */}
       {/* Logo flash-in, then scroll/zoom/fade */}
       <motion.img
         src={LOGO_URL}
         alt="impulse app logo"
-        className="z-20 object-contain -translate-x-8 md:-translate-x-16"
+        className="z-20 object-contain -translate-x-8 md:-translate-x-16 invert"
         style={{
           width: 'min(70vw, 28rem)',
           height: 'min(70vw, 28rem)',
