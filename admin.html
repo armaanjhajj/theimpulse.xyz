@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impulse Waitlist Admin</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: white;
+            color: black;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .waitlist-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid black;
+        }
+        .waitlist-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .email-list {
+            list-style: none;
+            padding: 0;
+        }
+        .email-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        .count {
+            font-weight: bold;
+            color: #666;
+        }
+        .export-btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .export-btn:hover {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Impulse Waitlist Admin</h1>
+        
+        <div class="waitlist-section">
+            <div class="waitlist-title">App Waitlist</div>
+            <div class="count">Total: <span id="appCount">0</span></div>
+            <ul id="appEmails" class="email-list"></ul>
+            <button class="export-btn" onclick="exportEmails('app')">Export App Emails</button>
+        </div>
+        
+        <div class="waitlist-section">
+            <div class="waitlist-title">Wearable Waitlist</div>
+            <div class="count">Total: <span id="wearableCount">0</span></div>
+            <ul id="wearableEmails" class="email-list"></ul>
+            <button class="export-btn" onclick="exportEmails('wearable')">Export Wearable Emails</button>
+        </div>
+    </div>
+
+    <script>
+        function loadWaitlistData() {
+            const appEmails = JSON.parse(localStorage.getItem('appWaitlist') || '[]');
+            const wearableEmails = JSON.parse(localStorage.getItem('wearableWaitlist') || '[]');
+            
+            document.getElementById('appCount').textContent = appEmails.length;
+            document.getElementById('wearableCount').textContent = wearableEmails.length;
+            
+            const appList = document.getElementById('appEmails');
+            const wearableList = document.getElementById('wearableEmails');
+            
+            appList.innerHTML = '';
+            wearableList.innerHTML = '';
+            
+            appEmails.forEach(email => {
+                const li = document.createElement('li');
+                li.className = 'email-item';
+                li.textContent = email;
+                appList.appendChild(li);
+            });
+            
+            wearableEmails.forEach(email => {
+                const li = document.createElement('li');
+                li.className = 'email-item';
+                li.textContent = email;
+                wearableList.appendChild(li);
+            });
+        }
+        
+        function exportEmails(type) {
+            const emails = JSON.parse(localStorage.getItem(type + 'Waitlist') || '[]');
+            const csv = 'email\n' + emails.join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${type}_waitlist.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        // Load data on page load
+        loadWaitlistData();
+        
+        // Refresh data every 5 seconds
+        setInterval(loadWaitlistData, 5000);
+    </script>
+</body>
+</html> 
