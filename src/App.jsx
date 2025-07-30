@@ -6,6 +6,7 @@ import CTA from './components/CTA';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import ScrollProgress from './components/ScrollProgress';
+import Waitlist from './components/Waitlist';
 // import BackgroundTransition from './components/BackgroundTransition';
 // import ImpulseModule from './components/ImpulseModule';
 // import EventTracker from './components/EventTracker'; // Removed
@@ -21,6 +22,7 @@ function App() {
       <Features />
       {/* <SegmentedSloganDisplay /> */}
       {/* <EventTracker /> */}
+      <Waitlist />
       <CTA />
       <Footer />
       <ScrollToTop />
