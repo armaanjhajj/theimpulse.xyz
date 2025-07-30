@@ -53,28 +53,144 @@
         .export-btn:hover {
             background: #333;
         }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+        .login-form {
+            background: white;
+            padding: 40px;
+            border: 2px solid black;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .login-form h2 {
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid black;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .login-btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .login-btn:hover {
+            background: #333;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+        .admin-content {
+            display: none;
+        }
+        .logout-btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .logout-btn:hover {
+            background: #333;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Impulse Waitlist Admin</h1>
-        
-        <div class="waitlist-section">
-            <div class="waitlist-title">App Waitlist</div>
-            <div class="count">Total: <span id="appCount">0</span></div>
-            <ul id="appEmails" class="email-list"></ul>
-            <button class="export-btn" onclick="exportEmails('app')">Export App Emails</button>
+    <!-- Login Form -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-form">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    class="login-input" 
+                    placeholder="Enter password"
+                    required
+                >
+                <button type="submit" class="login-btn">Login</button>
+                <div id="errorMessage" class="error-message">Incorrect password</div>
+            </form>
         </div>
-        
-        <div class="waitlist-section">
-            <div class="waitlist-title">Wearable Waitlist</div>
-            <div class="count">Total: <span id="wearableCount">0</span></div>
-            <ul id="wearableEmails" class="email-list"></ul>
-            <button class="export-btn" onclick="exportEmails('wearable')">Export Wearable Emails</button>
+    </div>
+
+    <!-- Admin Content -->
+    <div id="adminContent" class="admin-content">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h1>Impulse Waitlist Admin</h1>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+            
+            <div class="waitlist-section">
+                <div class="waitlist-title">App Waitlist</div>
+                <div class="count">Total: <span id="appCount">0</span></div>
+                <ul id="appEmails" class="email-list"></ul>
+                <button class="export-btn" onclick="exportEmails('app')">Export App Emails</button>
+            </div>
+            
+            <div class="waitlist-section">
+                <div class="waitlist-title">Wearable Waitlist</div>
+                <div class="count">Total: <span id="wearableCount">0</span></div>
+                <ul id="wearableEmails" class="email-list"></ul>
+                <button class="export-btn" onclick="exportEmails('wearable')">Export Wearable Emails</button>
+            </div>
         </div>
     </div>
 
     <script>
+        const CORRECT_PASSWORD = 'Impulse2025!!';
+        
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            showAdminContent();
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('passwordInput').value;
+            
+            if (password === CORRECT_PASSWORD) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                showAdminContent();
+                document.getElementById('errorMessage').style.display = 'none';
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
+        });
+
+        function showAdminContent() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            loadWaitlistData();
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+        }
+
         function loadWaitlistData() {
             const appEmails = JSON.parse(localStorage.getItem('appWaitlist') || '[]');
             const wearableEmails = JSON.parse(localStorage.getItem('wearableWaitlist') || '[]');
@@ -115,11 +231,12 @@
             window.URL.revokeObjectURL(url);
         }
         
-        // Load data on page load
-        loadWaitlistData();
-        
-        // Refresh data every 5 seconds
-        setInterval(loadWaitlistData, 5000);
+        // Refresh data every 5 seconds if logged in
+        setInterval(() => {
+            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+                loadWaitlistData();
+            }
+        }, 5000);
     </script>
 </body>
 </html> 
