@@ -158,18 +158,12 @@
     <script>
         const CORRECT_PASSWORD = 'Impulse2025!!';
         
-        // Check if already logged in
-        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-            showAdminContent();
-        }
-
         // Login form handler
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const password = document.getElementById('passwordInput').value;
             
             if (password === CORRECT_PASSWORD) {
-                sessionStorage.setItem('adminLoggedIn', 'true');
                 showAdminContent();
                 document.getElementById('errorMessage').style.display = 'none';
             } else {
@@ -185,7 +179,6 @@
         }
 
         function logout() {
-            sessionStorage.removeItem('adminLoggedIn');
             document.getElementById('loginContainer').style.display = 'flex';
             document.getElementById('adminContent').style.display = 'none';
             document.getElementById('passwordInput').value = '';
@@ -233,7 +226,7 @@
         
         // Refresh data every 5 seconds if logged in
         setInterval(() => {
-            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            if (document.getElementById('adminContent').style.display === 'block') {
                 loadWaitlistData();
             }
         }, 5000);
