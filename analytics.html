@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impulse Analytics</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f9f9f9;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+        }
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .metric-card {
+            background: white;
+            border: 2px solid #000;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .metric-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #000;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: lowercase;
+        }
+        .chart-section {
+            background: white;
+            border: 2px solid #000;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .chart-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+        .chart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .chart-item:last-child {
+            border-bottom: none;
+        }
+        .progress-bar {
+            width: 100px;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>impulse analytics</h1>
+            <p>website statistics and visitor insights</p>
+        </div>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>loading analytics...</p>
+        </div>
+
+        <div id="content" style="display: none;">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>total visits</h3>
+                    <div class="metric-value" id="totalVisits">0</div>
+                    <div class="metric-label">all time</div>
+                </div>
+                <div class="metric-card">
+                    <h3>unique visitors</h3>
+                    <div class="metric-value" id="uniqueVisitors">0</div>
+                    <div class="metric-label">individual users</div>
+                </div>
+                <div class="metric-card">
+                    <h3>page views</h3>
+                    <div class="metric-value" id="pageViews">0</div>
+                    <div class="metric-label">total page loads</div>
+                </div>
+                <div class="metric-card">
+                    <h3>avg session</h3>
+                    <div class="metric-value" id="avgSession">0:00</div>
+                    <div class="metric-label">time on site</div>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <h2>top countries</h2>
+                <div id="countriesList"></div>
+            </div>
+
+            <div class="chart-section">
+                <h2>device types</h2>
+                <div id="devicesList"></div>
+            </div>
+
+            <div class="chart-section">
+                <h2>top pages</h2>
+                <div id="pagesList"></div>
+            </div>
+
+            <div class="chart-section">
+                <h2>additional metrics</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>bounce rate</h3>
+                        <div class="metric-value" id="bounceRate">0%</div>
+                        <div class="metric-label">single page sessions</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>pages per session</h3>
+                        <div class="metric-value" id="pagesPerSession">0.0</div>
+                        <div class="metric-label">average engagement</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>countries reached</h3>
+                        <div class="metric-value" id="countriesReached">0</div>
+                        <div class="metric-label">global reach</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate loading analytics data
+        setTimeout(() => {
+            const stats = {
+                totalVisits: 1247,
+                uniqueVisitors: 892,
+                pageViews: 3456,
+                avgSessionDuration: 145,
+                bounceRate: 23.4,
+                topCountries: [
+                    { name: 'United States', visits: 456, percentage: 36.6 },
+                    { name: 'Canada', visits: 234, percentage: 18.8 },
+                    { name: 'United Kingdom', visits: 189, percentage: 15.2 },
+                    { name: 'Germany', visits: 123, percentage: 9.9 },
+                    { name: 'Australia', visits: 98, percentage: 7.9 }
+                ],
+                deviceTypes: [
+                    { type: 'Desktop', visits: 678, percentage: 54.4 },
+                    { type: 'Mobile', visits: 456, percentage: 36.6 },
+                    { type: 'Tablet', visits: 113, percentage: 9.1 }
+                ],
+                topPages: [
+                    { page: '/', views: 1247, percentage: 36.1 },
+                    { page: '/admin', views: 89, percentage: 2.6 },
+                    { page: '/chat', views: 567, percentage: 16.4 },
+                    { page: '/waitlist', views: 445, percentage: 12.9 }
+                ]
+            };
+
+            // Update metrics
+            document.getElementById('totalVisits').textContent = stats.totalVisits.toLocaleString();
+            document.getElementById('uniqueVisitors').textContent = stats.uniqueVisitors.toLocaleString();
+            document.getElementById('pageViews').textContent = stats.pageViews.toLocaleString();
+            document.getElementById('avgSession').textContent = formatDuration(stats.avgSessionDuration);
+            document.getElementById('bounceRate').textContent = stats.bounceRate + '%';
+            document.getElementById('pagesPerSession').textContent = (stats.pageViews / stats.totalVisits).toFixed(1);
+            document.getElementById('countriesReached').textContent = stats.topCountries.length;
+
+            // Update charts
+            updateChart('countriesList', stats.topCountries, 'visits');
+            updateChart('devicesList', stats.deviceTypes, 'visits');
+            updateChart('pagesList', stats.topPages, 'views');
+
+            // Hide loading, show content
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }, 1500);
+
+        function formatDuration(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateChart(containerId, data, valueKey) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            data.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'chart-item';
+                itemDiv.innerHTML = `
+                    <span>${item.name || item.type || item.page}</span>
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <span style="color: #666; font-size: 0.9rem;">${item[valueKey].toLocaleString()}</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${item.percentage}%"></div>
+                        </div>
+                        <span style="color: #666; font-size: 0.9rem; width: 40px; text-align: right;">${item.percentage}%</span>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+    </script>
+</body>
+</html> 
