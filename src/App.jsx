@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   // Track user progress for social proof
-  const totalSections = 10; // hero, video, features, chatbot, phone-logo, app-features, band, launch, portal, waitlist, retro
+  const totalSections = 11; // hero, video, features, chatbot, phone-logo, app-features, band, launch, portal, waitlist, footer, retro
   const progressPercentage = Math.round((exploredSections.size / totalSections) * 100);
 
   const handleSectionExplored = (sectionName) => {
@@ -177,6 +177,14 @@ function App() {
         viewport={{ once: true }}
       >
         <Waitlist />
+      </motion.div>
+
+      {/* Footer Section */}
+      <motion.div
+        onViewportEnter={() => handleSectionExplored('footer')}
+        viewport={{ once: true }}
+      >
+        <Footer />
       </motion.div>
 
       {/* Portal Transition - Peak-End Rule */}
