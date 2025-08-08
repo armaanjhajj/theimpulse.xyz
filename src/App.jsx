@@ -14,6 +14,7 @@ import Waitlist from './components/Waitlist';
 import RetroPortal from './components/RetroPortal';
 import ScrollProgress from './components/ScrollProgress';
 import ProgressTracker from './components/ProgressTracker';
+import RetroChatbot from './components/RetroChatbot';
 
 function App() {
   const [showRetroPortal, setShowRetroPortal] = useState(false);
@@ -27,7 +28,7 @@ function App() {
   }, []);
 
   // Track user progress for social proof
-  const totalSections = 9; // hero, video, features, phone-logo, app-features, band, launch, portal, waitlist, retro
+  const totalSections = 10; // hero, video, features, chatbot, phone-logo, app-features, band, launch, portal, waitlist, retro
   const progressPercentage = Math.round((exploredSections.size / totalSections) * 100);
 
   const handleSectionExplored = (sectionName) => {
@@ -99,6 +100,31 @@ function App() {
         viewport={{ once: true }}
       >
         <Features />
+      </motion.div>
+
+      {/* Retro Chatbot Section */}
+      <motion.div
+        onViewportEnter={() => handleSectionExplored('chatbot')}
+        viewport={{ once: true }}
+        className="py-16 md:py-24"
+      >
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="font-black text-4xl md:text-6xl lg:text-7xl lowercase tracking-tight leading-none text-black dark:text-white mb-6 transition-colors duration-500">
+              ask impulse anything
+            </h2>
+            <p className="text-lg md:text-xl text-black/60 dark:text-white/60 max-w-2xl mx-auto transition-colors duration-500">
+              curious about impulse? ask me anything about how we're changing the way people connect.
+            </p>
+          </motion.div>
+          <RetroChatbot />
+        </div>
       </motion.div>
 
       {/* Phone with Logo Section */}
