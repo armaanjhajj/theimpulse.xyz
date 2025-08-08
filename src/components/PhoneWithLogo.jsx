@@ -14,7 +14,7 @@ export default function PhoneWithLogo() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section className="relative w-full bg-white overflow-hidden">
+    <section className="relative w-full bg-white dark:bg-black overflow-hidden transition-colors duration-500">
       {/* Container that creates the peeking effect */}
       <div 
         ref={containerRef}
@@ -37,16 +37,16 @@ export default function PhoneWithLogo() {
           <div className="hidden md:flex items-center gap-8 lg:gap-12">
             {/* Text */}
             <div className="text-right">
-              <h2 className="font-black text-6xl lg:text-7xl lowercase tracking-tight leading-none text-black mb-4">
+              <h2 className="font-black text-6xl lg:text-7xl lowercase tracking-tight leading-none text-black dark:text-white mb-4 transition-colors duration-500">
                 the app
               </h2>
               
               {/* Heading and subheading */}
               <div className="text-right">
-                <h3 className="font-black text-3xl lg:text-4xl lowercase tracking-tight leading-tight text-black mb-2">
+                <h3 className="font-black text-3xl lg:text-4xl lowercase tracking-tight leading-tight text-black dark:text-white mb-2 transition-colors duration-500">
                   the impulse app connects you with people — in real life, instantly.
                 </h3>
-                <p className="font-black text-xl lg:text-2xl lowercase tracking-tight leading-tight text-black/60 max-w-2xl ml-auto">
+                <p className="font-black text-xl lg:text-2xl lowercase tracking-tight leading-tight text-black/60 dark:text-white/60 max-w-2xl ml-auto transition-colors duration-500">
                   we're bringing meeting people back into the real world. we'll alert you when you're around cool irl and you'll get a short window to act on that impulse and lock in a connection. every contact in your network is someone you've actually interacted with face-to-face — no meaningless follows, just genuine connections made in the moment.
                 </p>
               </div>
@@ -75,18 +75,18 @@ export default function PhoneWithLogo() {
             
             {/* Text content - right justified */}
             <div className="max-w-xs">
-              <h2 className="font-black text-4xl lowercase tracking-tight leading-none text-black mb-4">
+              <h2 className="font-black text-4xl lowercase tracking-tight leading-none text-black dark:text-white mb-4 transition-colors duration-500">
                 the app
               </h2>
               
-              <h3 className="font-black text-xl lowercase tracking-tight leading-tight text-black mb-3">
+              <h3 className="font-black text-xl lowercase tracking-tight leading-tight text-black dark:text-white mb-3 transition-colors duration-500">
                 the impulse app connects you with people — in real life, instantly.
               </h3>
               
               {/* Expandable subheading */}
               <div className="relative">
                 <motion.div
-                  className={`font-black text-sm lowercase tracking-tight leading-tight text-black/60 overflow-hidden transition-all duration-300 ${
+                  className={`font-black text-sm lowercase tracking-tight leading-tight text-black/60 dark:text-white/60 overflow-hidden transition-all duration-300 ${
                     isExpanded ? 'max-h-96' : 'max-h-12'
                   }`}
                 >
@@ -95,7 +95,7 @@ export default function PhoneWithLogo() {
                 
                 {/* Gradient overlay when collapsed */}
                 {!isExpanded && (
-                  <div className="absolute bottom-0 right-0 w-full h-8 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+                  <div className="absolute bottom-0 right-0 w-full h-8 bg-gradient-to-t from-white dark:from-black to-transparent pointer-events-none" />
                 )}
                 
                 {/* Expand/collapse button */}

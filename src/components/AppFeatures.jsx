@@ -39,7 +39,7 @@ export default function AppFeatures() {
   ];
 
   return (
-    <section className="relative w-full bg-white py-8 md:py-12">
+    <section className="relative w-full bg-white dark:bg-black py-8 md:py-12 transition-colors duration-500">
       <div className="max-w-6xl mx-auto px-6">
         {/* Desktop Layout */}
         <div className="hidden md:grid md:grid-cols-3 gap-12 lg:gap-16">
@@ -54,18 +54,18 @@ export default function AppFeatures() {
             >
               {/* Icon */}
               <div className="flex justify-center mb-6">
-                <div className="w-8 h-8 flex items-center justify-center text-black">
+                <div className="w-8 h-8 flex items-center justify-center text-black dark:text-white transition-colors duration-500">
                   {feature.icon}
                 </div>
               </div>
               
               {/* Title */}
-              <h3 className="font-black text-3xl lg:text-4xl lowercase tracking-tight leading-none text-black mb-4">
+              <h3 className="font-black text-3xl lg:text-4xl lowercase tracking-tight leading-none text-black dark:text-white mb-4 transition-colors duration-500">
                 {feature.title}
               </h3>
               
               {/* Description */}
-              <p className={`font-medium text-lg lg:text-xl lowercase tracking-tight leading-tight text-black/80 max-w-sm mx-auto ${feature.singleLine ? 'whitespace-nowrap' : ''}`}>
+              <p className={`font-medium text-lg lg:text-xl lowercase tracking-tight leading-tight text-black/80 dark:text-white/80 max-w-sm mx-auto transition-colors duration-500 ${feature.singleLine ? 'whitespace-nowrap' : ''}`}>
                 {feature.description.split(feature.trademark || '').map((part, i) => (
                   <span key={i}>
                     {part}
@@ -92,18 +92,18 @@ export default function AppFeatures() {
             >
               {/* Icon */}
               <div className="flex justify-center mb-4">
-                <div className="w-6 h-6 flex items-center justify-center text-black">
+                <div className="w-6 h-6 flex items-center justify-center text-black dark:text-white transition-colors duration-500">
                   {feature.icon}
                 </div>
               </div>
               
               {/* Title */}
-              <h3 className="font-black text-2xl lowercase tracking-tight leading-none text-black mb-3">
+              <h3 className="font-black text-2xl lowercase tracking-tight leading-none text-black dark:text-white mb-3 transition-colors duration-500">
                 {feature.title}
               </h3>
               
               {/* Description */}
-              <p className={`font-medium text-base lowercase tracking-tight leading-tight text-black/80 px-4 ${feature.singleLine ? 'whitespace-nowrap' : ''}`}>
+              <p className={`font-medium text-base lowercase tracking-tight leading-tight text-black/80 dark:text-white/80 px-4 transition-colors duration-500 ${feature.singleLine ? 'whitespace-nowrap' : ''}`}>
                 {feature.description.split(feature.trademark || '').map((part, i) => (
                   <span key={i}>
                     {part}

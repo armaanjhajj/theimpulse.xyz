@@ -34,7 +34,7 @@ export default function Waitlist() {
   };
 
   return (
-    <section className="relative z-10 py-4 md:py-8 flex flex-col items-center justify-center px-6 sm:px-8 md:px-12">
+    <section className="relative z-10 py-4 md:py-8 flex flex-col items-center justify-center px-6 sm:px-8 md:px-12 bg-white dark:bg-black transition-colors duration-500">
       <div className="w-full max-w-md">
         {/* Header */}
         <motion.div 
@@ -43,10 +43,10 @@ export default function Waitlist() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-black lowercase mb-2 whitespace-nowrap">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-black dark:text-white lowercase mb-2 whitespace-nowrap transition-colors duration-500">
             be first to connect
           </h2>
-          <p className="text-4xl md:text-6xl lg:text-7xl font-black text-black/40 lowercase whitespace-nowrap">
+          <p className="text-4xl md:text-6xl lg:text-7xl font-black text-black/40 dark:text-white/40 lowercase whitespace-nowrap transition-colors duration-500">
             join the limited launch
           </p>
         </motion.div>
@@ -62,22 +62,22 @@ export default function Waitlist() {
           >
             {/* Name Field */}
             <div>
-              <label className="block text-sm font-medium text-black mb-2">
+                            <label className="block text-sm font-medium text-black dark:text-white mb-2 transition-colors duration-500">
                 Name
               </label>
-                             <input
-                 type="text"
-                 value={name}
-                 onChange={(e) => setName(e.target.value)}
-                 placeholder="name"
-                 className="w-full px-4 py-3 text-base border border-gray-300 bg-gray-50 text-black placeholder-gray-500 rounded-lg focus:outline-none focus:border-black focus:bg-white transition-colors"
-                 required
-               />
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="name"
+                className="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 rounded-lg focus:outline-none focus:border-black dark:focus:border-white focus:bg-white dark:focus:bg-gray-700 transition-colors"
+                required
+              />
             </div>
 
             {/* Email Field */}
             <div>
-              <label className="block text-sm font-medium text-black mb-2">
+              <label className="block text-sm font-medium text-black dark:text-white mb-2 transition-colors duration-500">
                 Email
               </label>
               <input
@@ -85,14 +85,14 @@ export default function Waitlist() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@email.com"
-                className="w-full px-4 py-3 text-base border border-gray-300 bg-gray-50 text-black placeholder-gray-500 rounded-lg focus:outline-none focus:border-black focus:bg-white transition-colors"
+                className="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 rounded-lg focus:outline-none focus:border-black dark:focus:border-white focus:bg-white dark:focus:bg-gray-700 transition-colors"
                 required
               />
             </div>
 
             {/* Phone Field */}
             <div>
-              <label className="block text-sm font-medium text-black mb-2">
+              <label className="block text-sm font-medium text-black dark:text-white mb-2 transition-colors duration-500">
                 Phone (10 digits)
               </label>
               <input
@@ -105,7 +105,7 @@ export default function Waitlist() {
                   setPhone(value.slice(0, 10));
                 }}
                 placeholder="1234567890"
-                className="w-full px-4 py-3 text-base border border-gray-300 bg-gray-50 text-black placeholder-gray-500 rounded-lg focus:outline-none focus:border-black focus:bg-white transition-colors"
+                className="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 rounded-lg focus:outline-none focus:border-black dark:focus:border-white focus:bg-white dark:focus:bg-gray-700 transition-colors"
                 required
                 maxLength="10"
               />
@@ -117,7 +117,7 @@ export default function Waitlist() {
               disabled={isLoading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full px-6 py-3 bg-black text-white font-medium text-base rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
+              className="w-full px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-medium text-base rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors disabled:opacity-50"
             >
               {isLoading ? 'submitting...' : 'submit'}
             </motion.button>
@@ -129,7 +129,7 @@ export default function Waitlist() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <p className="text-lg text-black/80">
+            <p className="text-lg text-black/80 dark:text-white/80 transition-colors duration-500">
               you're on the list
             </p>
           </motion.div>

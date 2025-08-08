@@ -16,7 +16,7 @@ export default function Features() {
 
   // The highlight window moves through the paragraph as you scroll
   return (
-    <section ref={ref} className="relative z-10 w-full min-h-[40vh] flex flex-col justify-start items-center px-6 sm:px-8 md:px-12 pt-8 md:pt-12">
+    <section ref={ref} className="relative z-10 w-full min-h-[40vh] flex flex-col justify-start items-center px-6 sm:px-8 md:px-12 pt-8 md:pt-12 bg-white dark:bg-black transition-colors duration-500">
       <div className="max-w-3xl w-full mx-auto">
         <motion.p className="text-3xl md:text-5xl font-heading font-extrabold lowercase leading-tight mb-4 flex flex-wrap gap-x-2 gap-y-1">
           {words.map((word, i) => {

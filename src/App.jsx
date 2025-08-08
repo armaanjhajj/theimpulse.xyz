@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useDarkModeStore } from './stores/darkModeStore';
+import GlassHeader from './components/GlassHeader';
 import Hero from './components/Hero';
 import PeekingVideo from './components/PeekingVideo';
 import Features from './components/Features';
@@ -7,7 +9,6 @@ import PhoneWithLogo from './components/PhoneWithLogo';
 import AppFeatures from './components/AppFeatures';
 import BandSection from './components/BandSection';
 import LaunchBar from './components/LaunchBar';
-
 import PortalPreview from './components/PortalPreview';
 import Waitlist from './components/Waitlist';
 import RetroPortal from './components/RetroPortal';
@@ -53,8 +54,17 @@ function App() {
     return <RetroPortal onBackToModern={handleBackToModern} />;
   }
 
+  const { isDarkMode } = useDarkModeStore();
+
   return (
-    <div className="bg-white min-h-screen font-sans text-black relative overflow-x-hidden">
+    <div className={`min-h-screen font-sans relative overflow-x-hidden transition-colors duration-500 ${
+      isDarkMode 
+        ? 'bg-black text-white' 
+        : 'bg-white text-black'
+    }`}>
+      {/* Glass Header */}
+      <GlassHeader />
+      
       {/* Progress Tracker - Social Proof */}
       <ProgressTracker 
         progress={progressPercentage} 
@@ -90,6 +100,7 @@ function App() {
 
       {/* Phone with Logo Section */}
       <motion.div
+        id="app-section"
         onViewportEnter={() => handleSectionExplored('phone-logo')}
         viewport={{ once: true }}
       >
@@ -106,6 +117,7 @@ function App() {
 
       {/* Band Section */}
       <motion.div
+        id="wearable-section"
         onViewportEnter={() => handleSectionExplored('band')}
         viewport={{ once: true }}
       >

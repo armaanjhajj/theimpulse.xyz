@@ -11,21 +11,21 @@ export default function BandSection() {
   ];
 
   return (
-    <section className="relative w-full bg-white py-16 md:py-24">
+    <section className="relative w-full bg-white dark:bg-black py-16 md:py-24 transition-colors duration-500">
       <div className="max-w-6xl mx-auto px-6">
         {/* Desktop Layout */}
         <div className="hidden md:flex items-center gap-12 lg:gap-16">
           {/* Text content - left justified */}
           <div className="flex-1 text-left">
-            <h2 className="font-black text-6xl lg:text-7xl lowercase tracking-tight leading-none text-black mb-6">
+            <h2 className="font-black text-6xl lg:text-7xl lowercase tracking-tight leading-none text-black dark:text-white mb-6 transition-colors duration-500">
               the band
             </h2>
             
-            <h3 className="font-black text-3xl lg:text-4xl lowercase tracking-tight leading-tight text-black mb-4">
+            <h3 className="font-black text-3xl lg:text-4xl lowercase tracking-tight leading-tight text-black dark:text-white mb-4 transition-colors duration-500">
               connect to the network — and each other.
             </h3>
             
-            <p className="font-medium text-lg lg:text-xl lowercase tracking-tight leading-tight text-black/80 max-w-lg">
+            <p className="font-medium text-lg lg:text-xl lowercase tracking-tight leading-tight text-black/80 dark:text-white/80 max-w-lg transition-colors duration-500">
               Wear your Impulse Band™ to connect on your terms. Show your mood or availability with colors, skip the awkwardness, and tap bands to instantly add someone you've met to your network.
             </p>
           </div>
@@ -54,8 +54,8 @@ export default function BandSection() {
                   onClick={() => setCurrentImageIndex(index)}
                   className={`w-3 h-3 rounded-full transition-colors ${
                     currentImageIndex === index 
-                      ? 'bg-black' 
-                      : 'bg-gray-300 hover:bg-gray-400'
+                      ? 'bg-black dark:bg-white' 
+                      : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
                   }`}
                 />
               ))}
@@ -89,8 +89,8 @@ export default function BandSection() {
                   onClick={() => setCurrentImageIndex(index)}
                   className={`w-3 h-3 rounded-full transition-colors ${
                     currentImageIndex === index 
-                      ? 'bg-black' 
-                      : 'bg-gray-300 hover:bg-gray-400'
+                      ? 'bg-black dark:bg-white' 
+                      : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
                   }`}
                 />
               ))}
@@ -99,15 +99,15 @@ export default function BandSection() {
           
           {/* Text content */}
           <div className="max-w-sm">
-            <h2 className="font-black text-4xl lowercase tracking-tight leading-none text-black mb-4">
+            <h2 className="font-black text-4xl lowercase tracking-tight leading-none text-black dark:text-white mb-4 transition-colors duration-500">
               the band
             </h2>
             
-            <h3 className="font-black text-xl lowercase tracking-tight leading-tight text-black mb-3">
+            <h3 className="font-black text-xl lowercase tracking-tight leading-tight text-black dark:text-white mb-3 transition-colors duration-500">
               connect to the network — and each other.
             </h3>
             
-            <p className="font-medium text-base lowercase tracking-tight leading-tight text-black/80">
+            <p className="font-medium text-base lowercase tracking-tight leading-tight text-black/80 dark:text-white/80 transition-colors duration-500">
               Wear your Impulse Band™ to connect on your terms. Show your mood or availability with colors, skip the awkwardness, and tap bands to instantly add someone you've met to your network.
             </p>
           </div>

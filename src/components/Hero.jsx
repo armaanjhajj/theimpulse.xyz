@@ -27,7 +27,7 @@ export default function Hero() {
   }, [controls]);
 
   return (
-    <section ref={heroRef} className="relative flex flex-col items-center justify-center h-[calc(100vh-80px)] w-full bg-white text-black overflow-hidden select-none">
+    <section ref={heroRef} className="relative flex flex-col items-center justify-center h-[calc(100vh-80px)] w-full bg-white dark:bg-black text-black dark:text-white overflow-hidden select-none transition-colors duration-500">
       {/* Initial flash overlay */}
       <motion.div
         initial={{ opacity: 1 }}
