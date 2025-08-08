@@ -80,9 +80,10 @@ export default function PeekingVideo() {
               <div className="bg-white h-1/2 overflow-hidden">
                 <motion.div
                   key={currentWordIndex}
-                  className="font-black text-[clamp(4rem,15vw,12rem)] lowercase tracking-tight leading-none text-black"
+                  className="font-black text-[clamp(4rem,15vw,12rem)] lowercase tracking-tight leading-none text-black dark:text-white transition-colors duration-500"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.3 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                   style={{
@@ -98,9 +99,10 @@ export default function PeekingVideo() {
               <div className="h-1/2 overflow-hidden">
                 <motion.div
                   key={currentWordIndex}
-                  className="font-black text-[clamp(4rem,15vw,12rem)] lowercase tracking-tight leading-none text-white"
+                  className="font-black text-[clamp(4rem,15vw,12rem)] lowercase tracking-tight leading-none text-white dark:text-black transition-colors duration-500"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.3 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                   style={{

@@ -36,7 +36,13 @@ export default function PhoneWithLogo() {
           {/* Desktop Layout */}
           <div className="hidden md:flex items-center gap-8 lg:gap-12">
             {/* Text */}
-            <div className="text-right">
+            <motion.div 
+              className="text-right"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               <h2 className="font-black text-6xl lg:text-7xl lowercase tracking-tight leading-none text-black dark:text-white mb-4 transition-colors duration-500">
                 the app
               </h2>
@@ -50,16 +56,22 @@ export default function PhoneWithLogo() {
                   we're bringing meeting people back into the real world. we'll alert you when you're around cool irl and you'll get a short window to act on that impulse and lock in a connection. every contact in your network is someone you've actually interacted with face-to-face — no meaningless follows, just genuine connections made in the moment.
                 </p>
               </div>
-            </div>
+            </motion.div>
             
             {/* iPhone image with logo already included */}
-            <div className="relative">
+            <motion.div 
+              className="relative"
+              initial={{ opacity: 0, scale: 0.8, x: -50 }}
+              whileInView={{ opacity: 1, scale: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               <img
                 src="https://i.imgur.com/Dz10kt0.png"
                 alt="iPhone"
                 className="w-40 lg:w-48 xl:w-64"
               />
-            </div>
+            </motion.div>
           </div>
 
           {/* Mobile Layout */}

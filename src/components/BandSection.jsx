@@ -16,7 +16,13 @@ export default function BandSection() {
         {/* Desktop Layout */}
         <div className="hidden md:flex items-center gap-12 lg:gap-16">
           {/* Text content - left justified */}
-          <div className="flex-1 text-left">
+          <motion.div 
+            className="flex-1 text-left"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <h2 className="font-black text-6xl lg:text-7xl lowercase tracking-tight leading-none text-black dark:text-white mb-6 transition-colors duration-500">
               the band
             </h2>
@@ -28,10 +34,16 @@ export default function BandSection() {
             <p className="font-medium text-lg lg:text-xl lowercase tracking-tight leading-tight text-black/80 dark:text-white/80 max-w-lg transition-colors duration-500">
               Wear your Impulse Band™ to connect on your terms. Show your mood or availability with colors, skip the awkwardness, and tap bands to instantly add someone you've met to your network.
             </p>
-          </div>
+          </motion.div>
           
           {/* Band image */}
-          <div className="flex-1 flex flex-col items-center">
+          <motion.div 
+            className="flex-1 flex flex-col items-center"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <motion.div
               key={currentImageIndex}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -60,7 +72,7 @@ export default function BandSection() {
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Mobile Layout */}

@@ -65,6 +65,9 @@ function App() {
       {/* Glass Header */}
       <GlassHeader />
       
+      {/* Scroll Progress Bar */}
+      <ScrollProgress />
+      
       {/* Progress Tracker - Social Proof */}
       <ProgressTracker 
         progress={progressPercentage} 

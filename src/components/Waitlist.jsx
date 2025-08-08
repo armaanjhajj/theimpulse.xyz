@@ -41,6 +41,7 @@ export default function Waitlist() {
           className="text-center mb-12 flex flex-col items-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-black dark:text-white lowercase mb-2 whitespace-nowrap transition-colors duration-500">
@@ -58,6 +59,7 @@ export default function Waitlist() {
             className="w-full space-y-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             {/* Name Field */}

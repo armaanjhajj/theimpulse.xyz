@@ -11,6 +11,7 @@ export default function Footer() {
               className="text-4xl md:text-5xl font-black mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.6 }}
             >
               impulse
@@ -19,6 +20,7 @@ export default function Footer() {
               className="text-lg md:text-xl text-gray-300 dark:text-gray-700 transition-colors duration-500"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               making real-life connection easier
@@ -31,6 +33,7 @@ export default function Footer() {
               className="text-lg md:text-xl mb-6 text-white dark:text-black transition-colors duration-500"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.6 }}
             >
               lets keep in touch
@@ -39,6 +42,7 @@ export default function Footer() {
               className="flex justify-end space-x-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               {/* Twitter */}
@@ -70,6 +74,7 @@ export default function Footer() {
           className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {/* Links */}

@@ -1,40 +1,19 @@
-import { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useDarkModeStore } from '../stores/darkModeStore';
 
 export default function ScrollProgress() {
-  const [width, setWidth] = useState(0);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      setWidth(scrolled);
-
-      // Haptic feedback for iPhone
-      if ('navigator' in window && 'vibrate' in navigator) {
-        const scrollDelta = Math.abs(scrollTop - lastScrollY);
-        if (scrollDelta > 50) { // Only trigger on significant scroll
-          // Light impact haptic feedback
-          if ('vibrate' in navigator) {
-            navigator.vibrate(10);
-          }
-        }
-      }
-      setLastScrollY(scrollTop);
-    };
-
-    window.addEventListener('scroll', onScroll);
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [lastScrollY]);
+  const { scrollYProgress } = useScroll();
+  const { isDarkMode } = useDarkModeStore();
+  
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-1 z-50 bg-white">
-      <div
-        className="h-full bg-black transition-all duration-100"
-        style={{ width: `${width}%` }}
-      />
-    </div>
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"
+      style={{ scaleX, opacity }}
+    >
+      <div className={`h-full ${isDarkMode ? 'bg-white' : 'bg-black'} transition-colors duration-500`} />
+    </motion.div>
   );
 } 

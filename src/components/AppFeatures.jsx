@@ -50,7 +50,7 @@ export default function AppFeatures() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2, duration: 0.6 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.3 }}
             >
               {/* Icon */}
               <div className="flex justify-center mb-6">
@@ -88,7 +88,7 @@ export default function AppFeatures() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2, duration: 0.6 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.3 }}
             >
               {/* Icon */}
               <div className="flex justify-center mb-4">

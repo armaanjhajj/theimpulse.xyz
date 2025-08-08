@@ -84,13 +84,14 @@ export default function Hero() {
 
         {/* Main headline with dramatic typography */}
         <motion.h1
-          className="font-black text-[clamp(4rem,15vw,12rem)] lowercase text-center tracking-tight leading-none mb-8"
+          className="font-black text-[clamp(4rem,15vw,12rem)] lowercase text-center tracking-tight leading-none mb-8 text-black dark:text-white transition-colors duration-500"
           style={{
             y: textY,
             opacity: textOpacity,
           }}
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ delay: 0.8, duration: 1.2, ease: "easeOut" }}
         >
           impulse
@@ -98,13 +99,14 @@ export default function Hero() {
 
         {/* Subtitle with subtle animation */}
         <motion.p
-          className="text-2xl md:text-4xl font-black lowercase text-center tracking-tight leading-none mb-12 max-w-2xl mx-auto text-gray-600"
+          className="text-2xl md:text-4xl font-black lowercase text-center tracking-tight leading-none mb-12 max-w-2xl mx-auto text-gray-600 dark:text-gray-400 transition-colors duration-500"
           style={{
             y: textY,
             opacity: textOpacity,
           }}
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
         >
           lets get uncomfortable

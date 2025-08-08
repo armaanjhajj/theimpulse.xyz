@@ -9,7 +9,7 @@ export default function LaunchBar() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.3 }}
         >
           <h2 className="font-black text-4xl md:text-6xl lg:text-7xl lowercase tracking-tight leading-none text-white dark:text-black transition-colors duration-500">
             launching fall 2025

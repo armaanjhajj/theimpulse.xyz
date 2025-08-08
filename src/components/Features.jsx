@@ -28,6 +28,7 @@ export default function Features() {
             // Highlight if within window, dim otherwise
             const opacity = useTransform(distance, [0, HIGHLIGHT_WINDOW / 2, HIGHLIGHT_WINDOW], [1, 0.7, 0.4]);
             const color = useTransform(distance, [0, HIGHLIGHT_WINDOW / 2, HIGHLIGHT_WINDOW], ["#000", "#666", "#999"]);
+            const darkColor = useTransform(distance, [0, HIGHLIGHT_WINDOW / 2, HIGHLIGHT_WINDOW], ["#fff", "#ccc", "#999"]);
             return (
               <motion.span
                 key={i}
