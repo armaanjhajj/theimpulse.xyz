@@ -11,6 +11,7 @@ import BandSection from './components/BandSection';
 import LaunchBar from './components/LaunchBar';
 import PortalPreview from './components/PortalPreview';
 import Waitlist from './components/Waitlist';
+import Footer from './components/Footer';
 import RetroPortal from './components/RetroPortal';
 import ScrollProgress from './components/ScrollProgress';
 
@@ -18,16 +19,11 @@ function App() {
   const [showRetroPortal, setShowRetroPortal] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [exploredSections, setExploredSections] = useState(new Set());
-  const [currentSection, setCurrentSection] = useState('hero');
 
   // Ensure page starts at top on refresh
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  // Track user progress for social proof
-  const totalSections = 10; // hero, video, features, phone-logo, app-features, band, launch, portal, waitlist, footer, retro
-  const progressPercentage = Math.round((exploredSections.size / totalSections) * 100);
 
   const handleSectionExplored = (sectionName) => {
     setExploredSections(prev => new Set([...prev, sectionName]));
@@ -47,8 +43,6 @@ function App() {
     setIsTransitioning(false);
   };
 
-
-
   if (showRetroPortal) {
     return <RetroPortal onBackToModern={handleBackToModern} />;
   }
@@ -66,12 +60,8 @@ function App() {
       
       {/* Scroll Progress Bar */}
       <ScrollProgress />
-      
 
-      
-
-
-      {/* Hero Section - Dramatic Entry */}
+      {/* Hero Section */}
       <motion.div
         onViewportEnter={() => handleSectionExplored('hero')}
         viewport={{ once: true }}
@@ -79,7 +69,7 @@ function App() {
         <Hero />
       </motion.div>
 
-      {/* Peeking Video Section - Encourages Scrolling */}
+      {/* Peeking Video Section */}
       <motion.div
         onViewportEnter={() => handleSectionExplored('video')}
         viewport={{ once: true }}
@@ -87,15 +77,13 @@ function App() {
         <PeekingVideo />
       </motion.div>
 
-      {/* Features Section - Build Anticipation */}
+      {/* Features Section */}
       <motion.div
         onViewportEnter={() => handleSectionExplored('features')}
         viewport={{ once: true }}
       >
         <Features />
       </motion.div>
-
-
 
       {/* Phone with Logo Section */}
       <motion.div
@@ -131,9 +119,7 @@ function App() {
         <LaunchBar />
       </motion.div>
 
-
-
-      {/* Portal Section - Peak Moment */}
+      {/* Portal Section */}
       <motion.div
         onViewportEnter={() => handleSectionExplored('portal')}
         viewport={{ once: true }}
@@ -141,7 +127,7 @@ function App() {
         <PortalPreview onActivate={handlePortalTransition} />
       </motion.div>
 
-      {/* Waitlist Section - Call to Action */}
+      {/* Waitlist Section */}
       <motion.div
         onViewportEnter={() => handleSectionExplored('waitlist')}
         viewport={{ once: true }}
@@ -157,7 +143,7 @@ function App() {
         <Footer />
       </motion.div>
 
-      {/* Portal Transition - Peak-End Rule */}
+      {/* Portal Transition */}
       <AnimatePresence>
         {isTransitioning && (
           <motion.div
@@ -202,8 +188,6 @@ function App() {
               animate={{ opacity: [0, 0.3, 0] }}
               transition={{ duration: 1.5, delay: 0.8 }}
             />
-            
-
             
             {/* Glitch effect */}
             <motion.div
