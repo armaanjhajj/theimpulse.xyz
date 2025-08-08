@@ -2,10 +2,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
 const paragraph = [
-  'no one talks to each other anymore.',
-  'we\'ve replaced real moments with scrolling, swiping, and silence.',
-  'impulse exists to bring back instinct, boldness, and actually showing up.',
-  'lets get uncomfortable.'
+  'Impulse is built to connect people in real life.',
+  'You can grow a network of contacts only in person — we\'ll help you find cool people, but the rest is up to you.',
+  'Act on your impulse.'
 ].join(' ');
 
 const words = paragraph.split(' ');
@@ -17,7 +16,7 @@ export default function Features() {
 
   // The highlight window moves through the paragraph as you scroll
   return (
-    <section ref={ref} className="relative z-10 w-full min-h-[60vh] flex flex-col justify-center items-center px-6 sm:px-8 md:px-12 pt-16 md:pt-24">
+    <section ref={ref} className="relative z-10 w-full min-h-[40vh] flex flex-col justify-start items-center px-6 sm:px-8 md:px-12 pt-8 md:pt-12">
       <div className="max-w-3xl w-full mx-auto">
         <motion.p className="text-3xl md:text-5xl font-heading font-extrabold lowercase leading-tight mb-4 flex flex-wrap gap-x-2 gap-y-1">
           {words.map((word, i) => {

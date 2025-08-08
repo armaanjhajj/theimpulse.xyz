@@ -1,205 +1,160 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 
 export default function Waitlist() {
-  const [appEmail, setAppEmail] = useState('');
-  const [wearableEmail, setWearableEmail] = useState('');
-  const [appSubmitted, setAppSubmitted] = useState(false);
-  const [wearableSubmitted, setWearableSubmitted] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleAppSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!appEmail || !appEmail.includes('@')) return;
+    if (!phone || !name || !email) return;
     
     setIsLoading(true);
     try {
-      const response = await fetch('/api/waitlist/app', {
+      const response = await fetch('/api/sms', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: appEmail }),
+        body: JSON.stringify({ name, email, phone }),
       });
       
       if (response.ok) {
-        setAppSubmitted(true);
-        setAppEmail('');
+        setSubmitted(true);
+        setName('');
+        setEmail('');
+        setPhone('');
       } else {
         // Fallback: store in localStorage if API is not available
-        const existingEmails = JSON.parse(localStorage.getItem('appWaitlist') || '[]');
-        if (!existingEmails.includes(appEmail)) {
-          existingEmails.push(appEmail);
-          localStorage.setItem('appWaitlist', JSON.stringify(existingEmails));
-        }
-        setAppSubmitted(true);
-        setAppEmail('');
+        const existingEntries = JSON.parse(localStorage.getItem('waitlist') || '[]');
+        const newEntry = { name, phone, timestamp: Date.now() };
+        existingEntries.push(newEntry);
+        localStorage.setItem('waitlist', JSON.stringify(existingEntries));
+        setSubmitted(true);
+        setName('');
+        setEmail('');
+        setPhone('');
       }
     } catch (error) {
-      console.error('Error submitting app waitlist:', error);
+      console.error('Error submitting waitlist:', error);
       // Fallback: store in localStorage if API is not available
-      const existingEmails = JSON.parse(localStorage.getItem('appWaitlist') || '[]');
-      if (!existingEmails.includes(appEmail)) {
-        existingEmails.push(appEmail);
-        localStorage.setItem('appWaitlist', JSON.stringify(existingEmails));
-      }
-      setAppSubmitted(true);
-      setAppEmail('');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleWearableSubmit = async (e) => {
-    e.preventDefault();
-    if (!wearableEmail || !wearableEmail.includes('@')) return;
-    
-    setIsLoading(true);
-    try {
-      const response = await fetch('/api/waitlist/wearable', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: wearableEmail }),
-      });
-      
-      if (response.ok) {
-        setWearableSubmitted(true);
-        setWearableEmail('');
-      } else {
-        // Fallback: store in localStorage if API is not available
-        const existingEmails = JSON.parse(localStorage.getItem('wearableWaitlist') || '[]');
-        if (!existingEmails.includes(wearableEmail)) {
-          existingEmails.push(wearableEmail);
-          localStorage.setItem('wearableWaitlist', JSON.stringify(existingEmails));
-        }
-        setWearableSubmitted(true);
-        setWearableEmail('');
-      }
-    } catch (error) {
-      console.error('Error submitting wearable waitlist:', error);
-      // Fallback: store in localStorage if API is not available
-      const existingEmails = JSON.parse(localStorage.getItem('wearableWaitlist') || '[]');
-      if (!existingEmails.includes(wearableEmail)) {
-        existingEmails.push(wearableEmail);
-        localStorage.setItem('wearableWaitlist', JSON.stringify(existingEmails));
-      }
-      setWearableSubmitted(true);
-      setWearableEmail('');
+      const existingEntries = JSON.parse(localStorage.getItem('waitlist') || '[]');
+      const newEntry = { name, phone, timestamp: Date.now() };
+      existingEntries.push(newEntry);
+      localStorage.setItem('waitlist', JSON.stringify(existingEntries));
+      setSubmitted(true);
+      setName('');
+      setEmail('');
+      setPhone('');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <section className="relative z-10 py-24 flex flex-col items-center justify-center px-6 sm:px-8 md:px-12">
-      <motion.h2 
-        className="text-3xl md:text-4xl font-heading font-extrabold text-center mb-12 text-black lowercase"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        join the waitlist
-      </motion.h2>
-      
-      <div className="w-full max-w-4xl grid md:grid-cols-2 gap-8 md:gap-12">
-        {/* App Waitlist */}
+    <section className="relative z-10 py-4 md:py-8 flex flex-col items-center justify-center px-6 sm:px-8 md:px-12">
+      <div className="w-full max-w-md">
+        {/* Header */}
         <motion.div 
-          className="flex flex-col items-center"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-center mb-12 flex flex-col items-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <h3 className="text-xl md:text-2xl font-heading font-bold text-center mb-6 text-black lowercase">
-            impulse app
-          </h3>
-          
-          {!appSubmitted ? (
-            <form onSubmit={handleAppSubmit} className="w-full max-w-sm">
-              <div className="flex flex-col gap-4">
-                <input
-                  type="email"
-                  value={appEmail}
-                  onChange={(e) => setAppEmail(e.target.value)}
-                  placeholder="your email"
-                  className="w-full px-6 py-4 text-lg font-sans border-2 border-black bg-white text-black placeholder-black/60 lowercase focus:outline-none focus:border-black"
-                  required
-                />
-                <motion.button
-                  type="submit"
-                  disabled={isLoading}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full px-6 py-4 bg-black text-white font-heading font-bold text-lg flex items-center justify-center gap-3 lowercase hover:bg-black/90 transition-colors disabled:opacity-50"
-                >
-                  {isLoading ? 'joining...' : 'join app waitlist'}
-                  <ArrowRight className="w-5 h-5" />
-                </motion.button>
-              </div>
-            </form>
-          ) : (
-            <motion.div 
-              className="text-center"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <p className="text-lg font-sans text-black/80 lowercase">
-                you're on the list
-              </p>
-            </motion.div>
-          )}
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-black lowercase mb-2 whitespace-nowrap">
+            be first to connect
+          </h2>
+          <p className="text-4xl md:text-6xl lg:text-7xl font-black text-black/40 lowercase whitespace-nowrap">
+            join the limited launch
+          </p>
         </motion.div>
+        
+        {/* Form */}
+        {!submitted ? (
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="w-full space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            {/* Name Field */}
+            <div>
+              <label className="block text-sm font-medium text-black mb-2">
+                Name
+              </label>
+                             <input
+                 type="text"
+                 value={name}
+                 onChange={(e) => setName(e.target.value)}
+                 placeholder="name"
+                 className="w-full px-4 py-3 text-base border border-gray-300 bg-gray-50 text-black placeholder-gray-500 rounded-lg focus:outline-none focus:border-black focus:bg-white transition-colors"
+                 required
+               />
+            </div>
 
-        {/* Wearable Waitlist */}
-        <motion.div 
-          className="flex flex-col items-center"
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <h3 className="text-xl md:text-2xl font-heading font-bold text-center mb-6 text-black lowercase">
-            impulse wearable
-          </h3>
-          
-          {!wearableSubmitted ? (
-            <form onSubmit={handleWearableSubmit} className="w-full max-w-sm">
-              <div className="flex flex-col gap-4">
-                <input
-                  type="email"
-                  value={wearableEmail}
-                  onChange={(e) => setWearableEmail(e.target.value)}
-                  placeholder="your email"
-                  className="w-full px-6 py-4 text-lg font-sans border-2 border-black bg-white text-black placeholder-black/60 lowercase focus:outline-none focus:border-black"
-                  required
-                />
-                <motion.button
-                  type="submit"
-                  disabled={isLoading}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full px-6 py-4 bg-black text-white font-heading font-bold text-lg flex items-center justify-center gap-3 lowercase hover:bg-black/90 transition-colors disabled:opacity-50"
-                >
-                  {isLoading ? 'joining...' : 'join wearable waitlist'}
-                  <ArrowRight className="w-5 h-5" />
-                </motion.button>
-              </div>
-            </form>
-          ) : (
-            <motion.div 
-              className="text-center"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
+            {/* Email Field */}
+            <div>
+              <label className="block text-sm font-medium text-black mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="name@email.com"
+                className="w-full px-4 py-3 text-base border border-gray-300 bg-gray-50 text-black placeholder-gray-500 rounded-lg focus:outline-none focus:border-black focus:bg-white transition-colors"
+                required
+              />
+            </div>
+
+            {/* Phone Field */}
+            <div>
+              <label className="block text-sm font-medium text-black mb-2">
+                Phone (10 digits)
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => {
+                  // Only allow digits
+                  const value = e.target.value.replace(/\D/g, '');
+                  // Limit to 10 digits
+                  setPhone(value.slice(0, 10));
+                }}
+                placeholder="1234567890"
+                className="w-full px-4 py-3 text-base border border-gray-300 bg-gray-50 text-black placeholder-gray-500 rounded-lg focus:outline-none focus:border-black focus:bg-white transition-colors"
+                required
+                maxLength="10"
+              />
+            </div>
+
+            {/* Submit Button */}
+            <motion.button
+              type="submit"
+              disabled={isLoading}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full px-6 py-3 bg-black text-white font-medium text-base rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
             >
-              <p className="text-lg font-sans text-black/80 lowercase">
-                you're on the list
-              </p>
-            </motion.div>
-          )}
-        </motion.div>
+              {isLoading ? 'submitting...' : 'submit'}
+            </motion.button>
+          </motion.form>
+        ) : (
+          <motion.div 
+            className="text-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <p className="text-lg text-black/80">
+              you're on the list
+            </p>
+          </motion.div>
+        )}
       </div>
     </section>
   );
