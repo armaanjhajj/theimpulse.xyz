@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SplinePhone from './SplinePhone';
+import RetroChatbot from './RetroChatbot';
 
 export default function RetroPortal({ onBackToModern }) {
   const [openWindows, setOpenWindows] = useState({});
@@ -25,6 +26,7 @@ export default function RetroPortal({ onBackToModern }) {
   const desktopIcons = [
     { id: 'manifesto', name: 'manifesto.txt', icon: 'DOC' },
     { id: 'spline', name: 'spline_phone.exe', icon: 'EXE' },
+    { id: 'chatbot', name: 'impulse.exe', icon: 'EXE' },
   ];
 
   const windowContents = {
@@ -63,6 +65,23 @@ Status: READY
 Click to view the interactive phone demo.
 
 [This would open the SplinePhone component in a window]
+      `,
+    },
+
+    chatbot: {
+      title: 'impulse.exe',
+      content: `
+Loading Impulse Chatbot...
+==========================
+
+Initializing AI conversation engine...
+Loading response database...
+Connecting to impulse knowledge base...
+
+Status: READY
+Click to chat with impulse about the app.
+
+[This would open the RetroChatbot component in a window]
       `,
     },
   };
@@ -196,6 +215,10 @@ Click to view the interactive phone demo.
                   {id === 'spline' ? (
                     <div className="w-full h-96">
                       <SplinePhone />
+                    </div>
+                  ) : id === 'chatbot' ? (
+                    <div className="w-full h-96">
+                      <RetroChatbot />
                     </div>
                   ) : (
                     <div className="p-4 font-mono text-sm leading-relaxed whitespace-pre-wrap">
