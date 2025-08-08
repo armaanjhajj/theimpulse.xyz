@@ -13,7 +13,6 @@ import PortalPreview from './components/PortalPreview';
 import Waitlist from './components/Waitlist';
 import RetroPortal from './components/RetroPortal';
 import ScrollProgress from './components/ScrollProgress';
-import ProgressTracker from './components/ProgressTracker';
 import RetroChatbot from './components/RetroChatbot';
 
 function App() {
@@ -69,12 +68,7 @@ function App() {
       {/* Scroll Progress Bar */}
       <ScrollProgress />
       
-      {/* Progress Tracker - Social Proof */}
-      <ProgressTracker 
-        progress={progressPercentage} 
-        currentSection={currentSection}
-        exploredSections={exploredSections}
-      />
+
       
 
 
