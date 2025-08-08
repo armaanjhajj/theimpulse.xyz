@@ -13,45 +13,24 @@ export default function Waitlist() {
     if (!phone || !name || !email) return;
     
     setIsLoading(true);
-    try {
-      const response = await fetch('/api/sms', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, phone }),
-      });
-      
-      if (response.ok) {
-        setSubmitted(true);
-        setName('');
-        setEmail('');
-        setPhone('');
-      } else {
-        // Fallback: store in localStorage if API is not available
-        const existingEntries = JSON.parse(localStorage.getItem('waitlist') || '[]');
-        const newEntry = { name, phone, timestamp: Date.now() };
-        existingEntries.push(newEntry);
-        localStorage.setItem('waitlist', JSON.stringify(existingEntries));
-        setSubmitted(true);
-        setName('');
-        setEmail('');
-        setPhone('');
-      }
-    } catch (error) {
-      console.error('Error submitting waitlist:', error);
-      // Fallback: store in localStorage if API is not available
-      const existingEntries = JSON.parse(localStorage.getItem('waitlist') || '[]');
-      const newEntry = { name, phone, timestamp: Date.now() };
-      existingEntries.push(newEntry);
-      localStorage.setItem('waitlist', JSON.stringify(existingEntries));
-      setSubmitted(true);
-      setName('');
-      setEmail('');
-      setPhone('');
-    } finally {
-      setIsLoading(false);
-    }
+    
+    // Store in localStorage
+    const existingEntries = JSON.parse(localStorage.getItem('waitlist') || '[]');
+    const newEntry = { 
+      name, 
+      email, 
+      phone, 
+      timestamp: Date.now(),
+      date: new Date().toLocaleString()
+    };
+    existingEntries.push(newEntry);
+    localStorage.setItem('waitlist', JSON.stringify(existingEntries));
+    
+    setSubmitted(true);
+    setName('');
+    setEmail('');
+    setPhone('');
+    setIsLoading(false);
   };
 
   return (

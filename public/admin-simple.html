@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impulse Admin - Waitlist Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Impulse Waitlist Data</h1>
+            <p class="text-gray-600">View collected user data from localStorage</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button id="refreshBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                    🔄 Refresh Data
+                </button>
+                <button id="exportBtn" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                    📊 Export CSV
+                </button>
+                <button id="clearBtn" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                    🗑️ Clear All Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Total Users</h3>
+                <p class="text-3xl font-bold text-blue-600" id="totalUsers">0</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Today</h3>
+                <p class="text-3xl font-bold text-green-600" id="todayUsers">0</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">This Week</h3>
+                <p class="text-3xl font-bold text-purple-600" id="weekUsers">0</p>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">User Registrations</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="text-left p-3 border-b border-gray-200 font-semibold text-gray-700">Name</th>
+                            <th class="text-left p-3 border-b border-gray-200 font-semibold text-gray-700">Email</th>
+                            <th class="text-left p-3 border-b border-gray-200 font-semibold text-gray-700">Phone</th>
+                            <th class="text-left p-3 border-b border-gray-200 font-semibold text-gray-700">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Users will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 text-sm text-gray-500" id="tableInfo">
+                Loading users...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load users data from localStorage
+        function loadUsers() {
+            try {
+                const waitlistData = JSON.parse(localStorage.getItem('waitlist') || '[]');
+                
+                // Update stats
+                document.getElementById('totalUsers').textContent = waitlistData.length;
+                
+                // Calculate today's users
+                const today = new Date().toDateString();
+                const todayUsers = waitlistData.filter(user => 
+                    new Date(user.timestamp).toDateString() === today
+                );
+                document.getElementById('todayUsers').textContent = todayUsers.length;
+                
+                // Calculate this week's users
+                const weekAgo = new Date();
+                weekAgo.setDate(weekAgo.getDate() - 7);
+                const weekUsers = waitlistData.filter(user => 
+                    new Date(user.timestamp) > weekAgo
+                );
+                document.getElementById('weekUsers').textContent = weekUsers.length;
+                
+                // Update table
+                updateUsersTable(waitlistData);
+                
+                // Update info
+                document.getElementById('tableInfo').textContent = 
+                    `Showing ${waitlistData.length} users`;
+                
+            } catch (error) {
+                console.error('Error loading users:', error);
+                document.getElementById('tableInfo').textContent = 'Error loading users';
+            }
+        }
+
+        // Update users table
+        function updateUsersTable(users) {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+            
+            if (users.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="text-center p-4 text-gray-500">
+                            No users found
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Sort by timestamp (newest first)
+            users.sort((a, b) => b.timestamp - a.timestamp);
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50 border-b border-gray-100';
+                
+                const date = user.date || new Date(user.timestamp).toLocaleString();
+                
+                row.innerHTML = `
+                    <td class="p-3">${user.name || '-'}</td>
+                    <td class="p-3">${user.email || '-'}</td>
+                    <td class="p-3">${user.phone || '-'}</td>
+                    <td class="p-3 text-sm text-gray-500">${date}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // Export CSV
+        function exportCSV() {
+            try {
+                const waitlistData = JSON.parse(localStorage.getItem('waitlist') || '[]');
+                
+                if (waitlistData.length === 0) {
+                    alert('No data to export');
+                    return;
+                }
+                
+                // Create CSV content
+                const csvHeader = 'Name,Email,Phone,Date\n';
+                const csvRows = waitlistData.map(user => {
+                    const date = user.date || new Date(user.timestamp).toLocaleString();
+                    return `"${user.name || ''}","${user.email || ''}","${user.phone || ''}","${date}"`;
+                }).join('\n');
+                
+                const csvContent = csvHeader + csvRows;
+                
+                // Download file
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'impulse-waitlist.csv';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+            } catch (error) {
+                console.error('Error exporting CSV:', error);
+                alert('Error exporting CSV');
+            }
+        }
+
+        // Clear all data
+        function clearAllData() {
+            if (!confirm('Are you sure you want to clear all user data? This action cannot be undone.')) {
+                return;
+            }
+            
+            localStorage.removeItem('waitlist');
+            alert('All data cleared successfully');
+            loadUsers();
+        }
+
+        // Event listeners
+        document.getElementById('refreshBtn').addEventListener('click', loadUsers);
+        document.getElementById('exportBtn').addEventListener('click', exportCSV);
+        document.getElementById('clearBtn').addEventListener('click', clearAllData);
+
+        // Load users on page load
+        document.addEventListener('DOMContentLoaded', loadUsers);
+    </script>
+</body>
+</html>
